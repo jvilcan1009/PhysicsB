@@ -1,1 +1,51 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Wave Converter</title>\n    <script>\n        function convert(){\n            let input = parseFloat(document.getElementById('inputValue').value);\n            let inputUnit = document.getElementById('inputUnit').value;\n            let outputUnit = document.getElementById('outputUnit').value;\n            let result;\n\n            // Convert based on selected units\n            if(inputUnit === 'water' && outputUnit === 'sound'){\n                result = input * 1; // Placeholder conversion\n            } else if(inputUnit === 'sound' && outputUnit === 'light'){\n                result = input * 299792458; // Example light speed in m/s\n            } else {\n                result = 'Conversion not available';\n            }\n\n            document.getElementById('result').innerText = 'Result: ' + result;\n        }\n    <\/script>\n</head>\n<body>\n    <h1>Interactive Wave Converter</h1>\n    <div>\n        <label for="inputValue">Value:</label>\n        <input type="number" id="inputValue">\n    </div>\n    <div>\n        <label for="inputUnit">Input Unit:</label>\n        <select id="inputUnit">\n            <option value="water">Water</option>\n            <option value="sound">Sound</option>\n            <option value="light">Light</option>\n        </select>\n    </div>\n    <div>\n        <label for="outputUnit">Output Unit:</label>\n        <select id="outputUnit">\n            <option value="water">Water</option>\n            <option value="sound">Sound</option>\n            <option value="light">Light</option>\n        </select>\n    </div>\n    <button onclick="convert()">Convert</button>\n    <p id="result"></p>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Converter</title>
+    <script>
+        function convert() {
+            const frequency = parseFloat(document.getElementById('frequency').value);
+            const medium = document.getElementById('medium').value;
+            let speed;
+            let wavelength;
+
+            // Speed of sound in air (m/s)
+            if (medium === 'sound') {
+                speed = 343;
+            } 
+            // Speed of light in vacuum (m/s)
+            else if (medium === 'light') {
+                speed = 299792458;
+            } 
+            // Speed of water waves (m/s)
+            else if (medium === 'water') {
+                speed = 1482;
+            }
+
+            if (speed) {
+                wavelength = speed / frequency;
+                document.getElementById('result').innerText = `Wavelength: ${wavelength.toFixed(2)} meters`;
+            } else {
+                document.getElementById('result').innerText = 'Please select a valid medium.';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Interactive Wave Conversion Tool</h1>
+    <label for="frequency">Frequency (Hz): </label>
+    <input type="number" id="frequency" required>
+    <br>
+    <label for="medium">Select Medium:</label>
+    <select id="medium">
+        <option value="sound">Sound</option>
+        <option value="light">Light</option>
+        <option value="water">Water</option>
+    </select>
+    <br>
+    <button onclick="convert()">Convert</button>
+    <p id="result"></p>
+</body>
+</html>
